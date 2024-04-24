@@ -39,7 +39,7 @@ export default defineConfig(({ command, mode }) => {
     plugins: [vue(), vueJsx(),],
     server: {
       host: 'localhost',
-      port: 8787
+      port: 8080
     },
     base: env.VITE_BASE,  // 依照不同環境變數設置不同路徑
   }
