@@ -10,10 +10,13 @@ let drawer = ref(true)
     <!-- baseline -->
     <v-app id="inspire">
         <!-- 左側欄、頂部 -->
-        <AsideHeader></AsideHeader>
+        <AsideHeader />
 
         <!-- 內容 -->
         <v-main>
+            這邊是內容
+            <!-- Baseline 的 Layout -->
+            <RouterView />
         </v-main>
     </v-app>
 </template>

@@ -1,26 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-let drawer = ref(true)
+import { reactive, ref } from 'vue'
+import router from '@/router'
+let drawer = ref(false)
+
+const menuItemList = reactive([
+    { itemName: 'Dashboard', itemIcon: 'dashboard', itemValue: '/baseline/dashboard' },
+    { itemName: 'Account', itemIcon: 'account_balance', itemValue: '/baseline/account' },
+    { itemName: 'Admin', itemIcon: 'account_circle', itemValue: '/baseline/admin' },
+    { itemName: '返回', itemIcon: 'exit_to_app', itemValue: '/dashboard' },
+])
+
+function clickMenuItem(path: string) {
+    router.push(path)
+}
+
+
 </script>
 
 <template>
 
     <!-- 側邊清單 -->
-    <v-navigation-drawer class="bg-deep-purple" theme="light" v-model="drawer">
-        <v-list color="transparent">
-            <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard"></v-list-item>
-            <v-list-item prepend-icon="mdi-account-box" title="Account"></v-list-item>
-            <v-list-item prepend-icon="mdi-gavel" title="Admin"></v-list-item>
-        </v-list>
-
-        <template v-slot:append>
-            <div class="pa-2">
-                <!-- 返回按鈕 -->
-                <RouterLink to="/dashboard" custom v-slot="{ navigate }">
-                    <v-btn @click="navigate" role="link" block>返回</v-btn>
-                </RouterLink>
-            </div>
-        </template>
+    <v-navigation-drawer class="aside-drawer" theme="light" v-model="drawer">
+        <div class="pa-2">
+            <!-- 清單 -->
+            <v-list density='compact'>
+                <v-list-item v-for='(item, index) in menuItemList' color="primary" :key='index' :value="item"
+                    :title=item.itemName @click=clickMenuItem(item.itemValue)>
+                    <template v-slot:prepend>
+                        <!-- #e9d9f9 操作色 -->
+                        <!-- #f7f1fb 底色 -->
+                        <span class="v-icon material-icons-outlined">{{ item.itemIcon }}</span>
+                    </template>
+                </v-list-item>
+            </v-list>
+        </div>
     </v-navigation-drawer>
 
     <!-- 頂部 -->
@@ -31,4 +44,8 @@ let drawer = ref(true)
 
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.aside-drawer {
+    background-color: #f7f1fb,
+}
+</style>
